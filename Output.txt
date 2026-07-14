@@ -1,0 +1,42 @@
+----------------------------------
+Line 1
+void --> Keyword
+m1 --> Identifier
+( --> Punctuation
+string --> Keyword
+apple --> Identifier
+) --> Punctuation
+; --> Punctuation
+
+Line 2
+int --> Keyword
+main --> Keyword
+{ --> Punctuation
+
+Line 3
+float --> Keyword
+y --> Identifier
+
+Line 4
+x --> Identifier
+
+Line 5
+cout --> Keyword
+<< --> Operator
+"hello" --> String
+
+Line 6
+= --> Operator
+5 --> Integer
+
+Line 7
+2.5 --> Float
+
+Line 8
+return --> Keyword
++ --> Operator
+
+Line 9
+} --> Punctuation
+
+----------------------------------
