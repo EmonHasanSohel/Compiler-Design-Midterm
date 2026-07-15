@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cctype>
 
 using namespace std;
 
@@ -27,16 +26,16 @@ void printToken(ofstream &out, string token, string type, string printed[], int 
 
 int main()
 {
-    string keyword[] = {"int","float","char","double","void","return","string","cout","cin","if","else","for","while","main"};
-    string op[] = {"+","-","*","/","=","==","<<",">>","<",">","<=",">=","!="};
-    char punc[] = {';',',','(',')','{','}','[',']'};
+    string keyword[] = {"int", "float", "char", "double", "void", "return", "string", "cout", "cin", "if", "else", "for", "while", "main"};
+    string op[] = {"+", "-", "*", "/", "=", "==", "<<", ">>", "<", ">", "<=", ">=", "!="};
+    char punc[] = {';', ',', '(', ')', '{', '}', '[', ']'};
 
     ifstream file("Input.txt");
     ofstream out("Output.txt");
 
     if(!file)
     {
-        cout << "File not found";
+        cout << "File not found!";
         return 0;
     }
 
@@ -58,7 +57,7 @@ int main()
         {
             char ch = line[i];
 
-            if(isalnum(ch) || ch=='_' || ch=='.' || ch=='"')
+            if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '_' || ch == '.' || ch == '"')
             {
                 token += ch;
             }
@@ -86,9 +85,13 @@ int main()
                         for(int j = 0; j < token.length(); j++)
                         {
                             if(token[j] == '.')
+                            {
                                 dot++;
-                            else if(!isdigit(token[j]) && token[j] != '"')
+                            }
+                            else if(!(token[j] >= '0' && token[j] <= '9') && token[j] != '"')
+                            {
                                 number = false;
+                            }
                         }
 
                         if(token[0] == '"' && token[token.length()-1] == '"')
@@ -115,7 +118,7 @@ int main()
                 if(ch == ' ')
                     continue;
 
-                if((ch=='<' || ch=='>') && i+1<line.length() && line[i+1]==ch)
+                if((ch == '<' || ch == '>') && i + 1 < line.length() && line[i+1] == ch)
                 {
                     string temp = "";
                     temp += ch;
@@ -125,7 +128,7 @@ int main()
                     continue;
                 }
 
-                if((ch=='=' || ch=='!' || ch=='<' || ch=='>') && i+1<line.length() && line[i+1]=='=')
+                if((ch == '=' || ch == '!' || ch == '<' || ch == '>') && i + 1 < line.length() && line[i+1] == '=')
                 {
                     string temp = "";
                     temp += ch;
@@ -139,9 +142,9 @@ int main()
 
                 for(int j = 0; j < 13; j++)
                 {
-                    if(string(1,ch) == op[j])
+                    if(string(1, ch) == op[j])
                     {
-                        printToken(out, string(1,ch), "Operator", printed, printedCount);
+                        printToken(out, string(1, ch), "Operator", printed, printedCount);
                         foundOp = true;
                         break;
                     }
@@ -154,7 +157,7 @@ int main()
                 {
                     if(ch == punc[j])
                     {
-                        printToken(out, string(1,ch), "Punctuation", printed, printedCount);
+                        printToken(out, string(1, ch), "Punctuation", printed, printedCount);
                         break;
                     }
                 }
@@ -165,7 +168,7 @@ int main()
         lineNo++;
     }
 
-    out << "----------------------------------" << endl;
+    cout << "----------------------------------" << endl;
 
     file.close();
     out.close();
